@@ -2,4 +2,10 @@
 
 ##How to use it
 
-Just drop open index.html and drop .js file to the browser window.
+Go to index.html or [http://dharmoslap.github.io/RunJS/](http://dharmoslap.github.io/RunJS/).
+
+Then just drop a .js file to the browser window.
+
+
+
+
