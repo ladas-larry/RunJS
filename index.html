@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>RunJS</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <meta http-equiv="cleartype" content="on">
+</head>
+<style>
+
+
+html{
+    height: 100%;
+}
+body {
+    min-height: 100%;
+}
+
+body{
+    width: 100%;
+    font-family: sans-serif;
+    text-align: center;
+    padding-top:40px;
+}
+
+#dropzone {
+    min-height: 150px;
+    width: 250px;
+    border: 1px solid blue;
+    margin: 10px;
+    padding: 10px;
+}
+#running{
+    color: green;
+    margin: 10px;
+}
+</style>
+<body>
+
+<h1>Drop .js file</h1>
+<div id="running"> </div>
+
+
+<script>
+
+function runJs(file){
+    var el = document.getElementById('running');
+    var textType = /text.*/;
+
+    if (file.type.match(textType)) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            eval(reader.result);
+        }
+        reader.readAsText(file);
+        console.log('Running ' + file.name);
+        el.innerText = 'Running ' + file.name;
+    }else{
+        alert("File not supported!");
+    }
+};
+
+window.onload = function() {
+    var fileDropzone = document.body;
+
+    fileDropzone.addEventListener('drop', function (e) {
+        e = e || window.event; // get window.event if e argument missing (in IE)
+        if (e.preventDefault) { e.preventDefault(); } // stops the browser from redirecting off to the image.
+            var file = e.dataTransfer.files[0];
+            runJs(file);
+        });
+
+        function cancel(e) {
+            if (e.preventDefault) { e.preventDefault(); }
+                return false;
+            }
+
+            // Tells the browser that we *can* drop on this target
+            fileDropzone.addEventListener('dragover', cancel);
+            fileDropzone.addEventListener('dragenter', cancel);
+}
+</script>
+</body>
+
+
+
+
+</html>
