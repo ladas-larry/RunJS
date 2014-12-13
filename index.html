@@ -6,6 +6,8 @@
     <title>RunJS</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <meta http-equiv="cleartype" content="on">
 </head>
 <style>
@@ -32,44 +34,49 @@ body{
     margin: 10px;
     padding: 10px;
 }
-#running{
-    color: green;
+#info{
     margin: 10px;
+}
+.running{
+    color: green;
+}
+.not-compatible{
+    color: red;
 }
 </style>
 <body>
 
-<h1>Drop .js file</h1>
-<div id="running"> </div>
+<h1>RunJS</h1>
+<br>
 
+To run .js file just drag it and drop it on this page
+
+<div id="info"> </div>
 
 <script>
-
-function runJs(file){
-    var el = document.getElementById('running');
-    var textType = /text.*/;
-
-    if (file.type.match(textType)) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            eval(reader.result);
-        }
-        reader.readAsText(file);
-        console.log('Running ' + file.name);
-        el.innerText = 'Running ' + file.name;
-    }else{
-        alert("File not supported!");
-    }
-};
-
 window.onload = function() {
     var fileDropzone = document.body;
+    var el = document.getElementById('info');
+
 
     fileDropzone.addEventListener('drop', function (e) {
         e = e || window.event; // get window.event if e argument missing (in IE)
         if (e.preventDefault) { e.preventDefault(); } // stops the browser from redirecting off to the image.
             var file = e.dataTransfer.files[0];
-            runJs(file);
+            console.log(file);
+            if(file.type === "text/javascript"){
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    eval(reader.result);
+                }
+                reader.readAsText(file);
+                console.log('Running ' + file.name);
+                el.className = "running";
+                el.innerText = 'Running ' + file.name;
+            }else{
+                el.className = "not-compatible";
+                el.innerText = 'Please drop just .js files';
+            }
         });
 
         function cancel(e) {
