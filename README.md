@@ -1,6 +1,6 @@
-#RunJS
+# RunJS
 
-##How to use it
+## How to use it
 
 - go to index.html or open [http://dharmoslap.github.io/RunJS/](http://dharmoslap.github.io/RunJS/)
 
@@ -9,7 +9,7 @@
 As example try to drop test.js file and check the console.
 
 
-##Convert between .js and .html
+## Convert between .js and .html
 
 - with `toJs.sh` you can convert .html files into .js ones
 
